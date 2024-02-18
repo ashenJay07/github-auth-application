@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+import "./App.css";
+
 function App() {
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const codeParam = urlParams.get("code");
+    console.log(codeParam);
+  }, []);
+
   const loginWithGitHub = () => {
     const {
       REACT_APP_GITHUB_AUTH_URL: URL,

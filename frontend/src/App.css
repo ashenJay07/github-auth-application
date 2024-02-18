@@ -1,0 +1,14 @@
+.app {
+  width: 50vw;
+  height: 40vh;
+  background-color: rgb(12, 62, 138);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.app button {
+  width: 200px;
+  height: 40px;
+}
