@@ -9,7 +9,6 @@ function App() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const codeParam = urlParams.get("code");
-    console.log(codeParam);
 
     if (codeParam && localStorage.getItem("accessToken") === null) {
       const getAccessToken = async () => {
@@ -20,7 +19,6 @@ function App() {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             if (data.access_token) {
               localStorage.setItem("accessToken", data.access_token);
               setRerender(!rerender); // Rerender application after access token store in the local storage
@@ -42,8 +40,6 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-
         const { login, url, avatar_url: avatarUrl } = data;
         setUserData({
           login,

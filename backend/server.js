@@ -14,8 +14,6 @@ app.use(bodyParser.json());
 
 // Code being passed from the frontend
 app.get("/getAccessToken", async (req, res) => {
-  console.log(req.query.code);
-
   // prettier-ignore
   const params = "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&code=" + req.query.code;
   // prettier-ignore
@@ -39,8 +37,6 @@ app.get("/getAccessToken", async (req, res) => {
 // Getting user data
 // Access token is going to be passed in as an Authorization header
 app.get("/getUserData", async (req, res) => {
-  console.log(req.get("Authorization")); // Bearer type 'Access_Token'
-
   try {
     await axios({
       url: "https://api.github.com/user",
