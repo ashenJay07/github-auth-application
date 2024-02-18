@@ -3,9 +3,7 @@ require("dotenv").config();
 var express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
-const fetch = (...args) => {
-  import("node-fetch").then(({ default: fetch }) => fetch(...args));
-};
+var axios = require("axios");
 
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
@@ -20,41 +18,42 @@ app.get("/getAccessToken", async (req, res) => {
 
   // prettier-ignore
   const params = "?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&code=" + req.query.code;
+  // prettier-ignore
+  const tokenRequestURL = "https://github.com/login/oauth/access_token" + params;
 
-  await fetch("https://github.com/login/oauth/access_token" + params, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-    },
-  })
-    .then((response) => {
-      return response.json;
-    })
-    .then((data) => {
-      console.log(data);
-      res.json(data);
+  try {
+    await axios({
+      url: tokenRequestURL,
+      method: "post",
+      headers: {
+        Accept: "application/json",
+      },
+    }).then((response) => {
+      res.json(response.data);
     });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 // Getting user data
 // Access token is going to be passed in as an Authorization header
 app.get("/getUserData", async (req, res) => {
-  req.get("Authorization"); // Bearer type 'Access_Token'
+  console.log(req.get("Authorization")); // Bearer type 'Access_Token'
 
-  await fetch("https://api.github.com/user", {
-    method: "GET",
-    headers: "GET",
-    headers: {
-      Authorization: req.get("Authorization"),
-    },
-  })
-    .then((response) => {
-      return response.json;
-    })
-    .then((data) => {
-      console.log(data);
-      res.json(data);
+  try {
+    await axios({
+      url: "https://api.github.com/user",
+      method: "get",
+      headers: {
+        Authorization: req.get("Authorization"),
+      },
+    }).then((response) => {
+      res.json(response.data);
     });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.listen(8000, () => {
