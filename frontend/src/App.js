@@ -50,12 +50,10 @@ function App() {
   };
 
   const loginWithGitHub = () => {
-    const {
-      REACT_APP_GITHUB_AUTH_URL: URL,
-      REACT_APP_GITHUB_CLIENT_ID: CLIENT_ID,
-    } = process.env;
+    const { REACT_APP_GITHUB_CLIENT_ID: CLIENT_ID } = process.env;
 
-    window.location.assign(URL + CLIENT_ID);
+    // prettier-ignore
+    window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
   };
 
   return (
