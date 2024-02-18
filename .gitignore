@@ -24,3 +24,21 @@ frontend/yarn-error.log*
 
 # environment files
 frontend/.env
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+# -------------------------- Backend --------------------------
+
+# dependencies
+backend/node_modules
+
+# environment files
+backend/.env
